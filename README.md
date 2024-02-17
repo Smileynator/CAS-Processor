@@ -1,2 +1,9 @@
-# CAS-Processor
- CAS File packer and unpacker for EDF 5
+# CAS-CANM-Processor
+ Processes CAS and CANM files for Earth Defense Force 5.
+
+## Usage
+ Drop a CAS file on the application to extract a CANM file of the same name.
+ Drop a CANM file on the application to replace the CANM file inside the CAS file of the same name.
+
+ Note that it does not prompt for overrides, it assumes you know your order of operations.
+ Meaning it will gladly override your already existing CANM file if you re-drag the CAS file.

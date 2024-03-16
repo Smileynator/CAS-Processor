@@ -9,3 +9,8 @@
 
  Note that it does not prompt for overrides, it assumes you know your order of operations.
  Meaning it will gladly override your already existing CANM file if you re-drag the CAS file.
+
+## License
+EARTH DEFENSE FORCE is the registered trademark of SANDLOT and D3 PUBLISHER INC. This project is not affiliated with or endorsed by SANDLOT or D3 PUBLISHER INC in any way.
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/) (CC BY-NC 4.0).

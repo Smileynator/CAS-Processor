@@ -204,6 +204,7 @@ namespace CAS_Processor
                 //Append last bytes
                 Console.WriteLine($"Append old CAS data end");
                 casWriter.Write(lastBytes);
+                
                 //Update CAS file offsets to match new CAS length
                 Console.WriteLine($"Updating CAS string pointers by {canmLengthDiff}");
                 casFs.Position = 0x0C;
@@ -221,13 +222,23 @@ namespace CAS_Processor
                 ProcessPointer(casReader, casWriter, vControlCount, vControlOffset, canmLengthDiff, 0x14);
                 Console.WriteLine($"AnmGroup {anmGroupCount} - {anmGroupOffset}");
                 ProcessPointer(casReader, casWriter, anmGroupCount, anmGroupOffset, canmLengthDiff, 0x0C);
+                //AnmGroup has sub object with a string in it
+                for (int i = 0; i < anmGroupCount; i++)
+                {
+                    long anmPos = (anmGroupOffset + (0x0C * i));
+                    casReader.BaseStream.Position = anmPos+4;
+                    int count = casReader.ReadInt32();
+                    uint offset = casReader.ReadUInt32();
+                    Console.WriteLine($"Group {i} - MCAnm {count} - {offset}");
+                    ProcessPointer(casReader, casWriter, count, anmPos + offset, canmLengthDiff, 0x24);
+                }
                 Console.WriteLine($"Bone {boneCount} - {boneOffset}");
                 ProcessPointer(casReader, casWriter, boneCount, boneOffset, canmLengthDiff, 0x04);
                 Console.WriteLine($"Updating CAS Complete!");
             }
         }
 
-        private static void ProcessPointer(BinaryReader reader, BinaryWriter writer, int amount, int startOffset, int adjustment, int objSize)
+        private static void ProcessPointer(BinaryReader reader, BinaryWriter writer, int amount, long startOffset, int adjustment, int objSize)
         {
             for (int i = 0; i < amount; i++)
             {

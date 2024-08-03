@@ -96,7 +96,9 @@ namespace CAS_Processor
             }
 
             int version = reader.ReadInt32();
-            if (version != 515)
+            //515 is for EDF5, 516 is for EDF6
+            //For the purpose of this tool, nothing seems to have changed data wise that matters.
+            if (version != 515 && version != 516)
             {
                 Console.WriteLine("Unsupported game version!");
                 return false;

@@ -1,5 +1,5 @@
 # CAS-CANM-Processor
- Processes CAS and CANM files for Earth Defense Force 5.
+ Processes CAS and CANM files for Earth Defense Force 5 and 6.
 
 ## Usage
  - Drop a CAS file on the application to extract a CANM file of the same name.
@@ -9,6 +9,8 @@
 
  Note that it does not prompt for overrides, it assumes you know your order of operations.
  Meaning it will gladly override your already existing CANM file if you re-drag the CAS file.
+ 
+ Note that mixing and matching EDF 5 and 6 files is unlikely to turn out well, the different internal version numbers are likely to not work out when the game loads the files.
 
 ## License
 EARTH DEFENSE FORCE is the registered trademark of SANDLOT and D3 PUBLISHER INC. This project is not affiliated with or endorsed by SANDLOT or D3 PUBLISHER INC in any way.

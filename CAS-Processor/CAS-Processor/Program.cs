@@ -57,7 +57,7 @@ namespace CAS_Processor
         private static void UnpackCasFile(string filePath)
         {
             Console.WriteLine($"Unpacking {filePath}...");
-            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            using FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             using (BinaryReader reader = new BinaryReader(fs, Encoding.Unicode))
             {
                 if (!CheckCasSignature(reader)) 
@@ -96,13 +96,25 @@ namespace CAS_Processor
             }
 
             int version = reader.ReadInt32();
-            //515 is for EDF5, 516 is for EDF6
-            //For the purpose of this tool, nothing seems to have changed data wise that matters.
-            if (version != 515 && version != 516)
+            //For the purpose of this tool, nothing seems to have changed data wise that matters between these game versions.
+            string gameName;
+            switch (version)
             {
-                Console.WriteLine("Unsupported game version!");
-                return false;
+                case 512:
+                    gameName = "EDF 4.1";
+                    Console.WriteLine("Beware, EDF 4.1 support is untested and may cause issues!");
+                    break;
+                case 515:
+                    gameName = "EDF 5";
+                    break;
+                case 516:
+                    gameName = "EDF 6";
+                    break;
+                default:
+                    Console.WriteLine($"Unsupported game version! Found version: {version} (0x{version:X8})");
+                    return false;
             }
+            Console.WriteLine($"Processing for version {version} (0x{version:X8}) - ({gameName})");
             return true;
         }
         
